@@ -35,6 +35,16 @@ public class User implements Serializable {
         albums.add(album);
     }
 
+    public void deleteAlbum(String name) {
+        String indexName;
+        for(int i = 0; i < albums.size(); i++) {
+            indexName = albums.get(i).getAlbumName();
+            if(indexName.equals(name)) {
+                albums.remove(i);
+            }
+        }
+    }
+
     public void renameAlbum(Album album, String newName) {
         album.setAlbumName(newName);
     }
@@ -88,6 +98,18 @@ public class User implements Serializable {
                 break;
             }
         }
+    }
+
+    public void copyPhoto(Album dest, Photo photo) {
+        dest.addPhotoToAlbum(photo);
+        photo.getAlbums().add(dest);
+    }
+    
+    public void movePhoto(Album dest, Album source, Photo photo) {
+        dest.addPhotoToAlbum(photo);
+        photo.getAlbums().add(dest);
+        photo.getAlbums().remove(source);
+        source.deletePhoto(photo.getPhotoName());
     }
 
 }
