@@ -104,7 +104,7 @@ public class User implements Serializable {
         dest.addPhotoToAlbum(photo);
         photo.getAlbums().add(dest);
     }
-    
+
     public void movePhoto(Album dest, Album source, Photo photo) {
         dest.addPhotoToAlbum(photo);
         photo.getAlbums().add(dest);
