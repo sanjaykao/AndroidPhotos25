@@ -1,5 +1,7 @@
 package com.example.androidphotos25;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -25,7 +27,7 @@ public class Album implements Serializable {
         numOfPhotos++;
     }
 
-    public void deletePhoto(String photo) {
+    public void deletePhoto(Uri photo) {
         for(Photo item : photos) {
             if(item.getPhotoName().equals(photo)) {
                 photos.remove(item);
