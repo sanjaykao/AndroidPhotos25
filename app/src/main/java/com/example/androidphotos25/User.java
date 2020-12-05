@@ -1,9 +1,19 @@
 package com.example.androidphotos25;
 
+import android.content.Context;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
+
     public String username;
     public ArrayList<Album> albums;
     public ArrayList<Tag> userTags;
@@ -111,5 +121,4 @@ public class User implements Serializable {
         photo.getAlbums().remove(source);
         source.deletePhoto(photo.getPhotoName());
     }
-
 }
