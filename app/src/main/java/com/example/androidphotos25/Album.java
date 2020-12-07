@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Album implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public String albumName;
     public int numOfPhotos;
     public ArrayList<Photo> photos;
@@ -27,7 +29,7 @@ public class Album implements Serializable {
         numOfPhotos++;
     }
 
-    public void deletePhoto(Uri photo) {
+    public void deletePhoto(String photo) {
         for(Photo item : photos) {
             if(item.getPhotoName().equals(photo)) {
                 photos.remove(item);
