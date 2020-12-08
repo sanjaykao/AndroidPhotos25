@@ -6,7 +6,9 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
@@ -28,6 +30,7 @@ public class HomePage extends AppCompatActivity {
     private ArrayList<Album> albums;
     private String name;
     public RecyclerViewAdapter adapter;
+    public RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +57,8 @@ public class HomePage extends AppCompatActivity {
         }
         albums = user.getAlbums();
 
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv_id);
-        adapter = new RecyclerViewAdapter(this, user, albums);
+        rv = (RecyclerView)findViewById(R.id.rv_id);
+        adapter = new RecyclerViewAdapter(this, user, albums, 0);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
         rv.setAdapter(adapter);
     }
@@ -69,6 +72,11 @@ public class HomePage extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add:
                 addAlbum();
+                return true;
+            case R.id.action_search:
+                Intent intent = new Intent(this, SearchPage.class);
+                intent.putExtra("User", user);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -119,6 +127,18 @@ public class HomePage extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //adapter.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK){
+            user = (User)data.getSerializableExtra("User");
+            albums = user.getAlbums();
+            adapter = new RecyclerViewAdapter(this, user, albums, 0);
+            rv.setAdapter(adapter);
+        }
     }
 
 }
