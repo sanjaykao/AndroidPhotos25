@@ -34,6 +34,8 @@ import java.util.List;
 public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private User user;
     private Photo photo;
+    private ArrayList<Photo> albumPhotos;
+    private int index;
     //private ArrayList<Tag> tags;
     private String newTagType;
     ListView listView ;
@@ -53,6 +55,8 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
         Intent intent = getIntent();
         user = (User)intent.getSerializableExtra("User");
         photo = (Photo)intent.getSerializableExtra("Photo");
+        albumPhotos = (ArrayList<Photo>)intent.getSerializableExtra("Album Photos");
+        index = (int)intent.getSerializableExtra("Index");
 
         ImageView imageView = (ImageView) findViewById(R.id.photo_display_view);
         imageView.setImageURI(Uri.parse(photo.getPhotoName()));
@@ -132,6 +136,29 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
 
         });
 
+        Button nextButton = (Button) findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nextPhoto();
+                ImageView imageView = (ImageView) findViewById(R.id.photo_display_view);
+                imageView.setImageURI(Uri.parse(photo.getPhotoName()));
+                displayTags();
+            }
+        });
+
+        Button prevButton = (Button) findViewById(R.id.prevButton);
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                prevPhoto();
+                ImageView imageView = (ImageView) findViewById(R.id.photo_display_view);
+                imageView.setImageURI(Uri.parse(photo.getPhotoName()));
+                displayTags();
+            }
+        });
+
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -169,5 +196,21 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
                 photo.toStringTags());
 
         listView.setAdapter(adapter);
+    }
+
+    public void nextPhoto() {
+        index++;
+        if(index >= albumPhotos.size()){
+            index = 0;
+        }
+        photo = albumPhotos.get(index);
+    }
+
+    public void prevPhoto() {
+        index--;
+        if(index < 0) {
+            index = albumPhotos.size() - 1;
+        }
+        photo = albumPhotos.get(index);
     }
 }

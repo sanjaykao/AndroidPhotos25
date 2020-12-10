@@ -196,6 +196,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     Intent intent = new Intent(context, PhotoDisplay.class);
                     intent.putExtra("Photo", photos.get(position));
                     intent.putExtra("User", user);
+                    intent.putExtra("Album Photos", photos);
+                    intent.putExtra("Index", position);
                     ((Activity)context).startActivityForResult(intent, PHOTO_CODE);
                 }
             });

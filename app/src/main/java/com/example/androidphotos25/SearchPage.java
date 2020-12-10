@@ -82,7 +82,7 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
                 //test cases - if input is valid (needs a tag type)
                 //display search results
                 //if display is none, display text or Toast text that no results
-                EditText simpleEditText1 = (EditText) findViewById(R.id.tag1_value);
+                /*EditText simpleEditText1 = (EditText) findViewById(R.id.tag1_value);
                 String tagValue1 = simpleEditText1.getText().toString();
                 EditText simpleEditText2 = (EditText) findViewById(R.id.tag2_value);
                 String tagValue2 = simpleEditText2.getText().toString();
@@ -107,7 +107,8 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
                     } else {
                         displayResults(results);
                     }
-                }
+                }*/
+                displayResults(albums.get(0).getPhotos());
             }
         });
     }
