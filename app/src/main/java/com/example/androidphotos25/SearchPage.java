@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -80,29 +79,11 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //test cases - if input is valid (needs a tag type)
-                //display search results
-                //if display is none, display text or Toast text that no results
+
                 EditText simpleEditText1 = (EditText) findViewById(R.id.tag1_value);
                 String tagValue1 = simpleEditText1.getText().toString();
                 EditText simpleEditText2 = (EditText) findViewById(R.id.tag2_value);
                 String tagValue2 = simpleEditText2.getText().toString();
-
-                //System.out.println("Tag 1: " + tagType1 + ", " + tagValue1);
-                //System.out.println("Compare: " + compType);
-                //System.out.println("Tag 2: " + tagType2 + ", " + tagValue2);
-                /*ArrayList<Photo> test = albums.get(0).getPhotos();
-                Photo dog = test.get(0);
-                user.addTagToPhoto(dog, "Person", "reggie");
-                user.addTagToPhoto(dog, "Location", "bed");
-                Photo cs = test.get(1);
-                user.addTagToPhoto(cs, "Person", "me");
-                user.addTagToPhoto(cs, "Location", "dying");
-                user.addTagToPhoto(cs, "Location", "hire");
-                Photo job = test.get(2);
-                user.addTagToPhoto(job, "Person", "employee");
-                user.addTagToPhoto(job, "Location", "hire");
-                user.addTagToPhoto(job, "Person", "reggie");*/
 
                 if(tagValue1.matches("")) {
                     Bundle bundle = new Bundle();
@@ -157,7 +138,6 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
             for(Photo currPic : currAlbum.getPhotos()) {
                 boolean firstTag = false;
                 boolean secondTag = false;
-                //iterate through to see if tags are found
                 for(Tag currTag : currPic.getTags()) {
                     String currType = currTag.getName();
                     String currValue = currTag.getValue();
@@ -198,7 +178,6 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //type = parent.getItemAtPosition(position).toString();
         switch(parent.getId()) {
             case R.id.tag1_spinner:
                 tagType1 = parent.getItemAtPosition(position).toString();

@@ -86,6 +86,12 @@
              android:layout_gravity="center"
              android:layout_marginTop="10dip"
              android:text="Add Tag" />
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="10dip"
+             android:text="Note: to delete a tag, press on the tag in the listview"
+             android:layout_marginBottom="5dp"/>
       </LinearLayout>
 
    </LinearLayout>

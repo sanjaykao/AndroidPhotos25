@@ -1,7 +1,5 @@
 package com.example.androidphotos25;
 
-import android.net.Uri;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 

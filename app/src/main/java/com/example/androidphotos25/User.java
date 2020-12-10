@@ -1,14 +1,5 @@
 package com.example.androidphotos25;
 
-import android.content.Context;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -17,12 +8,10 @@ public class User implements Serializable {
 
     public String username;
     public ArrayList<Album> albums;
-    //public ArrayList<Tag> userTags;
 
     public User(String username) {
         this.username = username;
         this.albums = new ArrayList<Album>();
-        //this.userTags = new ArrayList<Tag>();
     }
 
     public ArrayList<Album> getAlbums(){
@@ -54,7 +43,6 @@ public class User implements Serializable {
         ArrayList<Tag> tags = userPic.getTags();
         Tag newTag = new Tag(name, value);
         tags.add(newTag);
-        //addAlbumTag(newTag);
     }
 
     public void deleteTag(Photo photo, String name, String value) {
@@ -79,29 +67,6 @@ public class User implements Serializable {
         }
         return null;
     }
-
-    /*public void deleteUserTag(String tag) {
-        // deletes the tag from the user tags arraylist if no more photos have the tag
-        String name = tag.substring(0, tag.indexOf(':'));
-        String value = tag.substring(tag.indexOf(':') + 1);
-        for(Album album : albums) {
-            ArrayList<Photo> photos = album.getPhotos();
-            for(Photo photo : photos) {
-                ArrayList<Tag> tags = photo.getTags();
-                for(Tag item : tags) {
-                    if(item.getName().equals(name) && item.getValue().equals(value)) {
-                        return;
-                    }
-                }
-            }
-        }
-        for(Tag uTag : userTags) {
-            if(uTag.getName().equals(name) && uTag.getValue().equals(value)) {
-                userTags.remove(uTag);
-                break;
-            }
-        }
-    }*/
 
     public void movePhoto(Album dest, Album source, Photo photo) {
         dest.addPhotoToAlbum(photo);
