@@ -82,14 +82,30 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
                 //test cases - if input is valid (needs a tag type)
                 //display search results
                 //if display is none, display text or Toast text that no results
-                /*EditText simpleEditText1 = (EditText) findViewById(R.id.tag1_value);
+                EditText simpleEditText1 = (EditText) findViewById(R.id.tag1_value);
                 String tagValue1 = simpleEditText1.getText().toString();
                 EditText simpleEditText2 = (EditText) findViewById(R.id.tag2_value);
                 String tagValue2 = simpleEditText2.getText().toString();
 
+                //System.out.println("Tag 1: " + tagType1 + ", " + tagValue1);
+                //System.out.println("Compare: " + compType);
+                //System.out.println("Tag 2: " + tagType2 + ", " + tagValue2);
+                /*ArrayList<Photo> test = albums.get(0).getPhotos();
+                Photo dog = test.get(0);
+                user.addTagToPhoto(dog, "Person", "reggie");
+                user.addTagToPhoto(dog, "Location", "bed");
+                Photo cs = test.get(1);
+                user.addTagToPhoto(cs, "Person", "me");
+                user.addTagToPhoto(cs, "Location", "dying");
+                user.addTagToPhoto(cs, "Location", "hire");
+                Photo job = test.get(2);
+                user.addTagToPhoto(job, "Person", "employee");
+                user.addTagToPhoto(job, "Location", "hire");
+                user.addTagToPhoto(job, "Person", "reggie");*/
+
                 if(tagType1 == null || tagType2 == null || compType == null) {
                     Toast.makeText(getApplicationContext(), "Please select a tag/compare type", Toast.LENGTH_LONG).show();
-                } else if(tagValue1 == "") {
+                } else if(tagValue1.matches("")) {
                     Toast.makeText(getApplicationContext(), "Please input at least one tag", Toast.LENGTH_LONG).show();
                 } else if(compType.equals("SINGLE")) {
                     ArrayList<Photo> picResults = findSearchResults(tagType1, tagValue1, null, null, compType);
@@ -98,7 +114,7 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
                     } else {
                         displayResults(picResults);
                     }
-                } else if(tagValue2 == "") {
+                } else if(tagValue2.matches("")) {
                     Toast.makeText(getApplicationContext(), "Please choose second tag for AND/OR comparison", Toast.LENGTH_LONG).show();
                 } else {
                     ArrayList<Photo> results = findSearchResults(tagType1, tagValue1, tagType2, tagValue2, compType);
@@ -107,8 +123,7 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
                     } else {
                         displayResults(results);
                     }
-                }*/
-                displayResults(albums.get(0).getPhotos());
+                }
             }
         });
     }
