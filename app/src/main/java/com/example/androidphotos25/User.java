@@ -50,31 +50,34 @@ public class User implements Serializable {
     }
 
     public void addTagToPhoto(Photo photo, String name, String value) {
-        ArrayList<Tag> tags = photo.getTags();
+        Photo userPic = findPhoto(photo);
+        ArrayList<Tag> tags = userPic.getTags();
         Tag newTag = new Tag(name, value);
         tags.add(newTag);
         //addAlbumTag(newTag);
     }
 
-    /*public void addAlbumTag(Tag tag) {
-        for(Tag item : userTags) {
-            if(item.getName().equals(tag.getName()) && item.getValue().equals(tag.getValue())) {
-                return;
-            }
-        }
-        userTags.add(tag);
-    }*/
-
     public void deleteTag(Photo photo, String name, String value) {
-        ArrayList<Tag> tags = photo.getTags();
+        Photo userPic = findPhoto(photo);
+        ArrayList<Tag> tags = userPic.getTags();
         for(int i = 0; i < tags.size(); i++) {
             if(tags.get(i).getName().equals(name) && tags.get(i).getValue().equals(value)) {
-                //String temp = tags.get(i).getName() + ":" + tags.get(i).getValue();
                 tags.remove(i);
-                //deleteUserTag(temp);
                 break;
             }
         }
+    }
+
+    public Photo findPhoto(Photo photo) {
+        for(Album currAlb : albums) {
+            for(Photo currPic : currAlb.getPhotos()) {
+                String currName = currPic.getPhotoName();
+                if(currName.equals(photo.getPhotoName())) {
+                    return currPic;
+                }
+            }
+        }
+        return null;
     }
 
     /*public void deleteUserTag(String tag) {

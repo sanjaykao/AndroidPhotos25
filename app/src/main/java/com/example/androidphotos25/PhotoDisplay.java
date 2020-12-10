@@ -36,7 +36,7 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
     private Photo photo;
     private ArrayList<Photo> albumPhotos;
     private int index;
-    //private ArrayList<Tag> tags;
+    private ArrayList<Tag> tags;
     private String newTagType;
     ListView listView ;
 
@@ -57,6 +57,7 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
         photo = (Photo)intent.getSerializableExtra("Photo");
         albumPhotos = (ArrayList<Photo>)intent.getSerializableExtra("Album Photos");
         index = (int)intent.getSerializableExtra("Index");
+        tags = photo.getTags();
 
         ImageView imageView = (ImageView) findViewById(R.id.photo_display_view);
         imageView.setImageURI(Uri.parse(photo.getPhotoName()));
@@ -78,7 +79,15 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View view) {
                 EditText simpleEditText = (EditText) findViewById(R.id.add_tag_value);
                 String newTagValue = simpleEditText.getText().toString();
-                user.addTagToPhoto(photo, newTagType, newTagValue);
+                if(ifExists(newTagType, newTagValue)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(PhotosDialogFragment.MESSAGE_KEY, "Tag already exists on this photo!");
+                    DialogFragment newFragment = new PhotosDialogFragment();
+                    newFragment.setArguments(bundle);
+                    newFragment.show(((AppCompatActivity)PhotoDisplay.this).getSupportFragmentManager(), "badfields");
+                } else {
+                    user.addTagToPhoto(photo, newTagType, newTagValue);
+                }
                 ObjectOutputStream oos;
                 try {
                     oos = new ObjectOutputStream(new FileOutputStream(getFilesDir().getAbsolutePath() + File.separator + "userData.dat", false));
@@ -190,10 +199,11 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void displayTags() {
+        Photo currPic = user.findPhoto(photo);
         listView = (ListView) findViewById(R.id.tagListView);
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
-                photo.toStringTags());
+                currPic.toStringTags());
 
         listView.setAdapter(adapter);
     }
@@ -204,6 +214,8 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
             index = 0;
         }
         photo = albumPhotos.get(index);
+        Photo currPic = user.findPhoto(photo);
+        tags = currPic.getTags();
     }
 
     public void prevPhoto() {
@@ -212,5 +224,18 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
             index = albumPhotos.size() - 1;
         }
         photo = albumPhotos.get(index);
+        Photo currPic = user.findPhoto(photo);
+        tags = currPic.getTags();
     }
+
+    public boolean ifExists(String type, String value) {
+        for(Tag currTag: tags) {
+            if(currTag.getName().equals(type) && currTag.getValue().equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

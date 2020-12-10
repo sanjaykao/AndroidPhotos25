@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -103,23 +104,37 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
                 user.addTagToPhoto(job, "Location", "hire");
                 user.addTagToPhoto(job, "Person", "reggie");*/
 
-                if(tagType1 == null || tagType2 == null || compType == null) {
-                    Toast.makeText(getApplicationContext(), "Please select a tag/compare type", Toast.LENGTH_LONG).show();
-                } else if(tagValue1.matches("")) {
-                    Toast.makeText(getApplicationContext(), "Please input at least one tag", Toast.LENGTH_LONG).show();
+                if(tagValue1.matches("")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(PhotosDialogFragment.MESSAGE_KEY, "Please input at least one tag");
+                    DialogFragment newFragment = new PhotosDialogFragment();
+                    newFragment.setArguments(bundle);
+                    newFragment.show(((AppCompatActivity)SearchPage.this).getSupportFragmentManager(), "badfields");
                 } else if(compType.equals("SINGLE")) {
                     ArrayList<Photo> picResults = findSearchResults(tagType1, tagValue1, null, null, compType);
                     if(picResults.size() == 0) {
-                        Toast.makeText(getApplicationContext(), "No photos match the results", Toast.LENGTH_LONG).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(PhotosDialogFragment.MESSAGE_KEY, "No photos match the results");
+                        DialogFragment newFragment = new PhotosDialogFragment();
+                        newFragment.setArguments(bundle);
+                        newFragment.show(((AppCompatActivity)SearchPage.this).getSupportFragmentManager(), "badfields");
                     } else {
                         displayResults(picResults);
                     }
                 } else if(tagValue2.matches("")) {
-                    Toast.makeText(getApplicationContext(), "Please choose second tag for AND/OR comparison", Toast.LENGTH_LONG).show();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(PhotosDialogFragment.MESSAGE_KEY, "Please choose a second tag for AND/OR comparison");
+                    DialogFragment newFragment = new PhotosDialogFragment();
+                    newFragment.setArguments(bundle);
+                    newFragment.show(((AppCompatActivity)SearchPage.this).getSupportFragmentManager(), "badfields");
                 } else {
                     ArrayList<Photo> results = findSearchResults(tagType1, tagValue1, tagType2, tagValue2, compType);
                     if(results.size() == 0) {
-                        Toast.makeText(getApplicationContext(), "No photos match the results", Toast.LENGTH_LONG).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(PhotosDialogFragment.MESSAGE_KEY, "No photos match the results");
+                        DialogFragment newFragment = new PhotosDialogFragment();
+                        newFragment.setArguments(bundle);
+                        newFragment.show(((AppCompatActivity)SearchPage.this).getSupportFragmentManager(), "badfields");
                     } else {
                         displayResults(results);
                     }
@@ -161,7 +176,6 @@ public class SearchPage extends AppCompatActivity implements AdapterView.OnItemS
                     }
                 }
 
-                    //add photo if conditions are true
                     if(compare.equals("SINGLE")) {
                         if(firstTag) {
                             picResults.add(currPic);
