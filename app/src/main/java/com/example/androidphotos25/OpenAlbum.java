@@ -39,6 +39,7 @@ public class OpenAlbum extends AppCompatActivity {
     private String title;
 
     private static final int PICK_IMAGE = 99;
+    private static final int PHOTO_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,20 +103,22 @@ public class OpenAlbum extends AppCompatActivity {
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             String uri = intent.getData().toString();
             boolean exists = false;
-            for(Photo photo : photos){
-                if(photo.getPhotoName().equals(uri)){
-                    exists = true;
-                    Bundle bundle = new Bundle();
-                    bundle.putString(PhotosDialogFragment.MESSAGE_KEY, "Photo already exists in this album!");
-                    DialogFragment newFragment = new PhotosDialogFragment();
-                    newFragment.setArguments(bundle);
-                    newFragment.show(getSupportFragmentManager(), "badfields");
-                    return;
+            for(Album item : albums){
+                ArrayList<Photo> temp1 = item.getPhotos();
+                for(Photo item2 : temp1){
+                    if(item2.getPhotoName().equals(uri)){
+                        exists = true;
+                        Bundle bundle = new Bundle();
+                        bundle.putString(PhotosDialogFragment.MESSAGE_KEY, "Photo already exists!");
+                        DialogFragment newFragment = new PhotosDialogFragment();
+                        newFragment.setArguments(bundle);
+                        newFragment.show(getSupportFragmentManager(), "badfields");
+                        return;
+                    }
                 }
             }
             if(!exists){
                 int index = photos.size();
-                System.out.println(index);
                 Photo temp = new Photo(uri);
                 album.addPhotoToAlbum(temp);
                 ObjectOutputStream oos;
@@ -133,19 +136,24 @@ public class OpenAlbum extends AppCompatActivity {
                 adapter1.notifyItemInserted(index);
             }
         }
-        if(resultCode == Activity.RESULT_OK){
+        if(resultCode == Activity.RESULT_OK && requestCode == PHOTO_CODE){
             user = (User)intent.getSerializableExtra("User");
             albums = user.getAlbums();
             for(Album temp : albums){
                 if(temp.getAlbumName().equals(title)){
                     album = temp;
                     photos = album.getPhotos();
+                    for(Photo temp3 : photos){
+                        System.out.println(temp3.getPhotoName());
+                        System.out.println(temp3.toStringTags());
+                    }
                     break;
                 }
             }
             adapter1 = new RecyclerViewAdapter(this, user, album, photos, 1);
             rv1.setAdapter(adapter1);
         }
+
     }
 
     @Override
