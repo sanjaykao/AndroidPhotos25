@@ -134,26 +134,12 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    public void displayTags() {
-        listView = (ListView) findViewById(R.id.tagListView);
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                photo.toStringTags());
-
-        listView.setAdapter(adapter);
-    }
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
 
-            case R.id.action_search:
-                Intent intent = new Intent(this, SearchPage.class);
-                intent.putExtra("User", user);
-                startActivity(intent);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -161,22 +147,6 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onBackPressed(){
-        ObjectInputStream ois;
-        try {
-            ois = new ObjectInputStream(new FileInputStream(getFilesDir().getAbsolutePath() + File.separator + "userData.dat"));
-            user = (User)ois.readObject();
-            ois.close();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
-        }
-
         Intent intent = new Intent(this, OpenAlbum.class);
         intent.putExtra("User", user);
         setResult(Activity.RESULT_OK, intent);
@@ -190,5 +160,14 @@ public class PhotoDisplay extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    public void displayTags() {
+        listView = (ListView) findViewById(R.id.tagListView);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                photo.toStringTags());
+
+        listView.setAdapter(adapter);
     }
 }

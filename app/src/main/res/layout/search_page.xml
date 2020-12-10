@@ -19,39 +19,82 @@
             app:popupTheme="@style/Theme.AndroidPhotos25.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:text="Tag Type:"
-        android:layout_marginBottom="5dp"/>
+        android:layout_height="125dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="First Tag Type:"
+                android:layout_marginBottom="5dp"/>
 
-    <Spinner
-        android:id="@+id/tags_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:layout_marginBottom="5dp"/>
+            <Spinner
+                android:id="@+id/tag1_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dp"/>
 
-    <EditText
-        android:id="@+id/tag_value"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dip"
-        android:layout_marginBottom="5dp">
-    </EditText>
+            <EditText
+                android:id="@+id/tag1_value"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dp">
+            </EditText>
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/compare_spinner"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="5dp"/>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="Second Tag Type:"
+                android:layout_marginBottom="5dp"/>
+
+            <Spinner
+                android:id="@+id/tag2_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dp"/>
+
+            <EditText
+                android:id="@+id/tag2_value"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dp">
+            </EditText>
+        </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Search"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_rv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
 
 </LinearLayout>
