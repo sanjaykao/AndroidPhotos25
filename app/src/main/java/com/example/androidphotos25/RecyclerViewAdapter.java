@@ -65,8 +65,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         LayoutInflater infl = LayoutInflater.from(context);
         if(activity == 0){
             view = infl.inflate(R.layout.album_cards, parent, false);
-        }else{
+        }else if (activity == 1){
             view = infl.inflate(R.layout.open_album_cards, parent, false);
+        } else {
+            view = infl.inflate(R.layout.search_cards, parent, false);
         }
         return new ViewHolder(view);
 
@@ -186,7 +188,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     pop.show();
                 }
             });
-        }else{
+        } else if (activity == 1){
             holder.photo_thumb.setImageURI(Uri.parse(photos.get(position).getPhotoName()));
             holder.album_cv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -297,6 +299,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     popup.show();
                 }
             });
+        } else {
+            holder.search_thumb.setImageURI(Uri.parse(photos.get(position).getPhotoName()));
         }
     }
 
@@ -327,6 +331,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ImageView photo_thumb;
         public TextView photo_menu;
         public CardView album_cv;
+        public ImageView search_thumb;
+        //public CardView search_cv_id;
 
         public ViewHolder(View view){
             super(view);
@@ -338,6 +344,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             photo_thumb = (ImageView)view.findViewById(R.id.album_pic_thumb);
             photo_menu = (TextView)view.findViewById(R.id.album_menu);
             album_cv = (CardView)view.findViewById(R.id.album_cv_id);
+
+            search_thumb = (ImageView)view.findViewById(R.id.search_thumb);
         }
     }
 }

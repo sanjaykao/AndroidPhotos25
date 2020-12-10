@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PhotoDisplay"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+   <com.google.android.material.appbar.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:theme="@style/Theme.AndroidPhotos25.AppBarOverlay">
+
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="?attr/colorPrimary"
+          app:popupTheme="@style/Theme.AndroidPhotos25.PopupOverlay" />
+   </com.google.android.material.appbar.AppBarLayout>
+
+   <ImageView
+       android:id="@+id/photo_display_view"
+       android:layout_width="200dp"
+       android:layout_height="200dp"
+       android:layout_gravity="center"
+       android:scaleType="centerCrop"
+       android:background="@color/black" />
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="horizontal">
+      <ListView
+          android:id="@+id/tagListView"
+          android:layout_height="match_parent"
+          android:layout_width="200dp"
+          android:layout_marginTop="10dip"
+          android:layout_marginBottom="5dp">
+      </ListView>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+         <Spinner
+             android:id="@+id/add_tags_spinner"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginTop="10dip"
+             android:layout_marginBottom="5dp"/>
+
+         <EditText
+             android:id="@+id/add_tag_value"
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:layout_gravity="center"
+             android:layout_marginTop="10dip"
+             android:layout_marginBottom="10dp">
+         </EditText>
+
+         <Button
+             android:id="@+id/addTagButton"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginTop="10dip"
+
+             android:text="Add Tag" />
+      </LinearLayout>
+
+   </LinearLayout>
+
+</LinearLayout>

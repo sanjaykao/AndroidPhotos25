@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">AndroidPhotos25</string>
     <string name="title_activity_open_album">Album</string>
+    <string name="title_activity_display_photo">Photo</string>
+    <string name="title_activity_search_page">Search</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

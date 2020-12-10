@@ -29,4 +29,13 @@ public class Photo implements Serializable {
     public ArrayList<Album> getAlbums() {
         return albums;
     }
+
+    public ArrayList<String> toStringTags() {
+        ArrayList<String> stringTags = new ArrayList<String>();
+        for(Tag tag : tags) {
+            stringTags.add(tag.toString());
+        }
+
+        return stringTags;
+    }
 }
